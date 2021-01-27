@@ -18,7 +18,13 @@ const Home: NextPage = () => {
         <h1 className={styles.title}>Pokedex Fatec</h1>
 
         {/* Listagem dos pokemons */}
-        <div>
+        <div className={styles.resultsContainer}>
+          <PokemonCard />
+          <PokemonCard />
+          <PokemonCard />
+          <PokemonCard />
+          <PokemonCard />
+          <PokemonCard />
           <PokemonCard />
         </div>
       </section>
