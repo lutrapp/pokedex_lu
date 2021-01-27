@@ -11,7 +11,22 @@ import PokemonCard from "../components/PokemonCard";
  */
 import styles from "../styles/pages/Home.module.css";
 
-const Home: NextPage = () => {
+/** Services */
+import { fetchPokemons} from "../services/pokemon";
+import { Pokemon } from "../types/pokemon";
+
+/** é como se fosse uma roupa */
+/** poderia ter escrito a linha abaixo da interface assim pokemons: Array<pokemons> */
+
+interface Props {
+  pokemons: Pokemon[];
+}
+
+const Home = (props: Props) => {
+  props.pokemons.forEach(pokemon => {
+    console.log(props.pokemons)
+  })
+  
   return (
     <main className={styles.container}>
       <section className={styles.content}>
@@ -31,5 +46,15 @@ const Home: NextPage = () => {
     </main>
   );
 };
+/** Buscando dados da pokeapi.co
+ * getStaticProps fará a busca de dados na API */ 
+export async function getStaticProps() {
+  const pokemons = await fetchPokemons();
 
+return {
+  props: {
+    pokemons: pokemons,
+  },
+};
+}
 export default Home;
