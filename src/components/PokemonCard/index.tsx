@@ -1,11 +1,21 @@
 import React from "react";
 import Image from "next/image";
-import Pokeball from "../Pokeball";
-
 
 // Styles
 import styles from "./styles.module.css";
-const PokemonCard: React.FC = () => {
+
+//  Components
+import Pokeball from "../Pokeball";
+
+// integrando com map
+// Types
+import {Pokemon} from '../../types/pokemon'
+interface Props {
+  pokemon: Pokemon;
+}
+
+const PokemonCard: React.FC<Props> = (props) => {
+  console.log(props.pokemon)
   return (
     <div className={styles.container}>
       {/* Informações do pokemon */}

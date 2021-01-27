@@ -23,9 +23,11 @@ interface Props {
 }
 
 const Home = (props: Props) => {
-  props.pokemons.forEach(pokemon => {
-    console.log(props.pokemons)
-  })
+
+/**como fazer um map no react 
+ */
+  
+    console.log(props.pokemons);
   
   return (
     <main className={styles.container}>
@@ -34,13 +36,10 @@ const Home = (props: Props) => {
 
         {/* Listagem dos pokemons */}
         <div className={styles.resultsContainer}>
-          <PokemonCard />
-          <PokemonCard />
-          <PokemonCard />
-          <PokemonCard />
-          <PokemonCard />
-          <PokemonCard />
-          <PokemonCard />
+          {props.pokemons.map(function(pokemon) {
+            // precisa atribuir uma key
+            return <PokemonCard key={pokemon.id} />
+          })}
         </div>
       </section>
     </main>
