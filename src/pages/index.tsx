@@ -38,7 +38,7 @@ const Home = (props: Props) => {
         <div className={styles.resultsContainer}>
           {props.pokemons.map(function(pokemon) {
             // precisa atribuir uma key
-            return <PokemonCard key={pokemon.id} />
+            return <PokemonCard key={pokemon.id} pokemon={pokemon} />
           })}
         </div>
       </section>

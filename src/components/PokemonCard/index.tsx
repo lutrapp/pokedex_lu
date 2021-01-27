@@ -20,10 +20,15 @@ const PokemonCard: React.FC<Props> = (props) => {
     <div className={styles.container}>
       {/* Informações do pokemon */}
       <div className={styles.info}>
-        <h1>Pikachu</h1>
+        <h1>{props.pokemon.name}</h1>
         <div className={styles.type}>
-          <span>Eletric</span>
-          <span>Water</span>
+          
+          {props.pokemon.pokemonTypes.map(function(type) {
+            return <span key={type.name}>{type.name}</span>
+          })}
+
+          {/* <span>Eletric</span>
+          <span>Water</span> */}
         </div>
       </div>
       {/* Pokeball e foto do Pokemon */}
@@ -31,7 +36,7 @@ const PokemonCard: React.FC<Props> = (props) => {
         <Pokeball />
         <div className={styles.image}>
           <Image 
-          src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png"
+          src={props.pokemon.sprites.other['official-artwork']. front_default}
           alt="Pokemon"
           layout="fill"
           objectFit="cover"
