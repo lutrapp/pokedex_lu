@@ -3,6 +3,7 @@ import Image from "next/image";
 
 // Styles
 import styles from "./styles.module.css";
+import {colorMapping} from "../../styles/colors"
 
 //  Components
 import Pokeball from "../Pokeball";
@@ -15,9 +16,12 @@ interface Props {
 }
 
 const PokemonCard: React.FC<Props> = (props) => {
-  console.log(props.pokemon)
+  const backgroundColor = colorMapping[props.pokemon.color];
+
   return (
-    <div className={styles.container}>
+    <div className={styles.container}
+      style={{ backgroundColor: backgroundColor }}
+>
       {/* Informações do pokemon */}
       <div className={styles.info}>
         <h1>{props.pokemon.name}</h1>

@@ -1,10 +1,12 @@
-import React from "react";
+import React, {useState} from "react";
+import Head from "next/head";
 import { NextPage } from "next";
 
 /**
  * Components
  */
 import PokemonCard from "../components/PokemonCard";
+import Input from "../components/Input"
 
 /**
  * Styles
@@ -23,20 +25,51 @@ interface Props {
 }
 
 const Home = (props: Props) => {
+  const [search, setSearch] = useState("");
+  // Estado para os pokemons
+  // O estado inicial é aquele que vem das props
+  // Estamos fazendo isso porque não podemos alterar a props diretamente
+  // Só se pode alterar o estado
+  const [statePokemons, setStatePokemons] = useState(props.pokemons);
 
-/**como fazer um map no react 
- */
-  
-    console.log(props.pokemons);
-  
-  return (
+  // Lidar com o evento "digitar" no input
+  function handleOnChange(event: React.ChangeEvent<HTMLInputElement>) {
+    if (event.target.value === '') {
+      setStatePokemons([]);
+    }
+    setSearch(event.target.value);
+
+    // Array filter = filtra os valores baseado em uma condição
+    const regex = `${event.target.value}.*`;
+
+    // filtrar os pokemons com a regex
+    const filteredPokemons = props.pokemons.filter((pokemon) => pokemon.name.match(new RegExp(regex, "is"))
+    );
+      
+    setStatePokemons(filteredPokemons);
+    
+    // console.log(filteredPokemons);
+  }
+
+    return (
     <main className={styles.container}>
+      <Head>
+        <title>Pokedex Fatec</title>
+      </Head>
       <section className={styles.content}>
         <h1 className={styles.title}>Pokedex Fatec</h1>
 
+        <div className={styles.inputContainer}>
+          <Input 
+          onChange={handleOnChange}
+          value={search}
+          placeholder="Digite o nome do pokémon"
+          />
+        </div>
+
         {/* Listagem dos pokemons */}
         <div className={styles.resultsContainer}>
-          {props.pokemons.map(function(pokemon) {
+          {statePokemons.map(function(pokemon) {
             // precisa atribuir uma key
             return <PokemonCard key={pokemon.id} pokemon={pokemon} />
           })}
@@ -54,6 +87,8 @@ return {
   props: {
     pokemons: pokemons,
   },
+  // INCREMENTAL STATIC REGENERATION
+  revalidate: 1,
 };
 }
 export default Home;
